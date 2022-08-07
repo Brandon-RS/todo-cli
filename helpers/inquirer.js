@@ -7,13 +7,13 @@ const questions = [
     name: 'option',
     message: 'What would you like to do?',
     choices: [
-      { value: '1', name: '1. Create new task' },
-      { value: '2', name: '2. List all tasks' },
-      { value: '3', name: '3. List completed tasks' },
-      { value: '4', name: '4. List pending tasks' },
-      { value: '5', name: '5. Complete task(s)' },
-      { value: '6', name: '6. Delete task' },
-      { value: '0', name: '0. Exit' },
+      { value: '1', name: `${'1.'.green} Create new task` },
+      { value: '2', name: `${'2.'.green} List all tasks` },
+      { value: '3', name: `${'3.'.green} List completed tasks` },
+      { value: '4', name: `${'4.'.green} List pending tasks` },
+      { value: '5', name: `${'5.'.green} Complete task(s)` },
+      { value: '6', name: `${'6.'.green} Delete task` },
+      { value: '0', name: `${'0.'.green} Exit` },
     ]
   }
 ]
@@ -48,7 +48,27 @@ const stop = async () => {
 
 }
 
+const readInput = async (message) => {
+
+  const question = {
+    type: 'input',
+    name: 'desc',
+    message,
+    validate(value) {
+      if (value.length === 0) {
+        return 'Please, write a something!'
+      }
+      return true
+    }
+  }
+
+  const { desc } = await inquirer.prompt(question)
+  return desc
+
+}
+
 module.exports = {
   inquirerMenu,
-  stop
+  stop,
+  readInput,
 }
